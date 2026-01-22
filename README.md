@@ -39,11 +39,11 @@ Sigue estos pasos para tener el proyecto corriendo en pocos minutos usando **Doc
 
 1. **Crear y entrar en una carpeta para el proyecto**
 
-```bash
-   mkdir linktic
-   cd linktic
-```
-o en su defecto entrar en esta carpeta
+    ```bash
+    mkdir linktic
+    cd linktic
+    ```
+    o en su defecto entrar en esta carpeta
 
 2. **Clonar Repo**
 `git clone https://github.com/HellFramco/linktic.git`
