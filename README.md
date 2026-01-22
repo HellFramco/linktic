@@ -151,15 +151,15 @@ El archivo `docker-compose.yml` levanta los siguientes contenedores:
 
 ```mermaid
 flowchart LR
-    User[Usuario] --> Nginx[Nginx Frontend (80)]
-    Nginx --> APIProd[API Productos (8081)]
-    Nginx --> APIInv[API Inventory (8082)]
+    User[Usuario] --> Nginx[Frontend]
+    Nginx --> APIProd[API_Productos]
+    Nginx --> APIInv[API_Inventory]
 
-    APIProd --> Postgres[Postgres (product_db)]
-    APIInv --> PostgresInv[Postgres (inventory_db)]
+    APIProd --> Postgres[Postgres_product_db]
+    APIInv --> PostgresInv[Postgres_inventory_db]
 
-    APIInv --> Kafka[Kafka (9092)]
-    Kafka --> Zookeeper[Zookeeper (2181)]
+    APIInv --> Kafka[Kafka]
+    Kafka --> Zookeeper[Zookeeper]
 ```
 
 ---
