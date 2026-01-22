@@ -1,0 +1,51 @@
+server:
+  port: 8081
+  
+spring:
+  application:
+    name: products
+
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: kafka:9092
+      bindings:
+        productCreated-out:
+          destination: product-created
+          content-type: application/json
+
+  datasource:
+    # url: jdbc:postgresql://localhost:5433/product_db  #local
+    url: jdbc:postgresql://localhost:5432/product_db  #Docker
+    username: postgres
+    password: ""
+    
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true  
+    properties:
+      hibernate:
+        format_sql: true 
+        dialect: org.hibernate.dialect.PostgreSQLDialect 
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+
+logging:
+  level:
+    org.springframework: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+api:
+  security:
+    keys: ${API_KEYS:producto-api-linktic}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+file:
+  upload-dir: /opt/app/uploads

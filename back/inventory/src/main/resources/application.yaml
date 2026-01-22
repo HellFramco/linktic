@@ -1,0 +1,46 @@
+server:
+  port: 8082   # IMPORTANTE: no usar 8081 (ya lo usa products)
+
+spring:
+  application:
+    name: inventory
+
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: kafka:9092   # ← Esto es lo principal que faltaba → conecta al broker correcto
+      bindings:
+        handleProductCreated-in-0:   # Debe coincidir con el nombre del @Bean Consumer (handleProductCreated)
+          destination: product-created
+          group: inventory-group
+          content-type: application/json
+
+  datasource:
+    # Local (descomenta si pruebas fuera de Docker)
+    # url: jdbc:postgresql://localhost:5433/inventory_db
+
+    # Docker (recomendado en tu setup)
+    url: jdbc:postgresql://postgres-db:5432/inventory_db
+    username: postgres
+    password: postgres
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+security:
+  api-key: ${API_KEYS:inventory-api-linktic}
+
+clients:
+  product:
+    base-url: http://api-productos:8081
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
