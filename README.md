@@ -29,17 +29,17 @@ flowchart LR
 
 # Inicio Rapido
 ## Crear una carpeta llamada "LINKTIC"
-´cd linktic´ o en su defecto entrar en esta carpeta
+`cd linktic` o en su defecto entrar en esta carpeta
 
 ## Clonar Repo
-´git clone https://github.com/HellFramco/linktic.git´
+`git clone https://github.com/HellFramco/linktic.git`
 
 ## Generar Contenedor, imagenes, volumen y servicios
-´docker compose build´ 
+`docker compose build`
 Es muy importante recalcar que debes tener Docker
 
 ## Levantar o correr el contenedor
-´docker compose up -d´ 
+`docker compose up -d`
 ### Esperar 5 minutos a que todos los servicios esten corriendo y luego ya estara listo
 
 ---
@@ -106,8 +106,7 @@ El archivo `docker-compose.yml` levanta los siguientes contenedores:
 
 - Construido desde: `back/products`
 - Puerto: **8081**
-- Conexión a Postgres:
-- SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/product_db
+- Conexión a Postgres: `SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/product_db`
 - API key: `producto-api-linktic`
 
 ---
@@ -116,8 +115,7 @@ El archivo `docker-compose.yml` levanta los siguientes contenedores:
 
 - Construido desde: `back/inventory`
 - Puerto: **8082**
-- Conexión a Postgres:
-- SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/inventory_db
+- Conexión a Postgres: `SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/inventory_db`
 - API key: `inventory-api-linktic`
 - Consume eventos de Kafka (p. ej. `ProductCreatedEvent`)
 
@@ -153,13 +151,13 @@ El archivo `docker-compose.yml` levanta los siguientes contenedores:
 
 ## Comandos usados
 ### Levantar todo el stack
-´docker-compose up --build´
+`docker-compose up --build`
 
 ### Parar el stack
-´docker-compose down´
+`docker-compose down`
 
 ### Levantar en segundo plano
-´docker-compose up -d --build´
+`docker-compose up -d --build`
 
 ---
 
