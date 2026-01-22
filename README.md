@@ -312,11 +312,11 @@ Products:
 
 
 # Uso de IA
-ChatGPT fue utilizado como apoyo para:
+## ChatGPT fue utilizado como apoyo para:
 - Definición de arquitectura
 - Estructura del proyecto
 - Buenas prácticas y patrones
-GROCK fue utilizado como apoyo para:
+## GROCK fue utilizado como apoyo para:
 - Arquitectura de procesos
 - Diagramas de uso
 - Documentacion 
