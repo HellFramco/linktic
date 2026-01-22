@@ -1,10 +1,558 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* O estilos básicos si no usas Tailwind aún */
+:root {
+    --primary: #6366f1;
+    --primary-light: #818cf8;
+    --primary-dark: #4f46e5;
+    --accent: #06b6d4;
+    --accent-light: #67e8f9;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #64748b;
+    --bg-primary: #0f0f23;
+    --bg-secondary: #1e1e3f;
+    --bg-card: rgba(30, 30, 63, 0.6);
+    --border: rgba(99, 102, 241, 0.2);
+    --border-light: rgba(99, 102, 241, 0.1);
+}
+
+.contenidoPrincipal {
+    display: contents;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background-color: #f9fafb;
+    font-family: "Inter", sans-serif;
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    position: relative;
+}
+
+/* Subtle background pattern */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle at 1px 1px, rgba(99, 102, 241, 0.05) 1px, transparent 0);
+    background-size: 20px 20px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Main container */
+.login-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Logo container */
+.logo-container {
+    text-align: center;
+    margin-bottom: 32px;
+    position: relative;
+    justify-content: center;
+    display: flex;
+}
+
+.logo {
+    max-width: 160px;
+    height: auto;
+    filter: drop-shadow(0 4px 12px rgba(99, 102, 241, 0.3));
+}
+
+/* Login card */
+.login-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 25px 20px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.login-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.6;
+}
+
+/* Terminal header */
+.terminal-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.terminal-title {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.terminal-subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 300;
+    text-align: center;
+}
+
+/* Neural title (simplified) */
+.neural-title {
+    font-family: "JetBrains Mono", monospace;
+    font-size: clamp(28px, 6vw, 32px);
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+    position: relative;
+}
+
+.neural-subtitle {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+    margin-top: 8px;
+}
+
+/* Form styles */
+.form-group {
+    margin-bottom: 5px;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.form-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    margin-left: 12px;
+    margin-right: 12px;
+    text-align: start;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px rgba(15, 15, 35, 0.6) inset !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
+    transition: background-color 9999s ease-in-out 0s;
+}
+
+.form-input{
+    padding: 9.5px 15px;
+}
+
+.form-select{
+    padding: 5px 15px;
+}
+
+.form-input, .form-select {
+    width: 100%;
+    background: rgba(15, 15, 35, 0.5);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    color: #cf6cf1;
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(10px);
+}
+
+.form-input:focus, .form-select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+    background: rgba(15, 15, 35, 0.7);
+}
+
+.form-input::placeholder {
+    color: var(--text-muted);
+}
+
+.form-select {
+    appearance: none;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 20 20\'%3e%3cpath stroke=\'%236b7280\' stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'m6 8 4 4 4-4\'/%3e%3c/svg%3e");
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    padding-right: 40px;
+    padding: 11px 15px;
+}
+
+.form-select option {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    padding: 8px;
+}
+
+/* Channel sections (simplified) */
+.channel-section {
+    border: 1px solid var(--border-light);
+    background: rgba(15, 15, 35, 0.3);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.channel-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.control-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    transition: all 0.2s ease;
+}
+
+.control-item:hover {
+    transform: translateX(2px);
+}
+
+.cyberpunk-checkbox {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    margin-right: 12px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cyberpunk-checkbox::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 1px;
+    opacity: 0;
+    transition: all 0.2s ease;
+}
+
+.cyberpunk-checkbox:checked::before {
+    opacity: 1;
+}
+
+.cyberpunk-checkbox:checked {
+    border-color: var(--accent);
+}
+
+.control-label {
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    flex: 1;
+}
+
+.control-item:hover .control-label {
+    color: var(--text-primary);
+}
+
+.status-indicator {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    margin-left: 8px;
+    transition: all 0.2s ease;
+}
+
+.cyberpunk-checkbox:checked ~ .status-indicator {
+    background: var(--accent);
+}
+
+/* Button styles */
+.login-button {
+    width: 100%;
+    padding: 14px;
+    background: var(--primary);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    margin-top: 8px;
+}
+
+.login-button:hover {
+    background: var(--primary-light);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px -8px rgba(99, 102, 241, 0.4);
+}
+
+.login-button:active {
+    transform: translateY(0);
+}
+
+/* Scroll indicator (simplified) */
+.scroll-down {
+    position: fixed;
+    width: max-content;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    color: var(--accent);
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0.6;
+    animation: bounce 2s infinite;
+    transition: all .5s;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(4px); }
+}
+
+.scroll-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Form container with scroll */
+#loginForm {
+    overflow-y: auto;
+    max-height: 400px;
+    padding-right: 8px;
+}
+
+#loginForm::-webkit-scrollbar {
+    width: 4px;
+}
+
+#loginForm::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#loginForm::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 2px;
+}
+
+#loginForm::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .login-container {
+        max-width: 90vw;
+        padding: 16px;
+    }
+    
+    .login-card {
+        padding: 24px;
+    }
+    
+    .neural-title {
+        font-size: 24px;
+        letter-spacing: 1px;
+    }
+    
+    .form-input, .form-select {
+        padding: 10px 14px;
+    }
+    
+    .login-button {
+        padding: 12px;
+    }
+}
+
+/* Loading state */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.loading .login-button {
+    background: var(--text-muted);
+    cursor: not-allowed;
+}
+
+/* DJ console elements (kept simple) */
+main {
+    position: relative;
+    width: 900px;
+    height: 499px;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    margin: 150px auto 0 auto;
+}
+
+#songloader-container {
+    width: 100%;
+    height: 120px;
+    position: fixed;
+    top: 0;
+    margin: auto;
+    overflow: hidden;
+}
+
+#songloader {
+    width: 500px;
+    background: var(--bg-card);
+    height: 120px;
+    margin: auto;
+    position: relative;
+    top: 120px;
+    border-radius: 16px 16px 0 0;
+    border: 1px solid var(--border);
+    backdrop-filter: blur(20px);
+    padding: 16px;
+}
+
+/* Simplified DJ controls */
+.jog {
+    width: 200px;
+    height: 200px;
+    background: var(--bg-primary);
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    position: absolute;
+    animation: rotate 8s linear infinite;
+}
+
+.jog.paused {
+    animation-play-state: paused;
+}
+
+.jog.running {
+    animation-play-state: running;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.info {
+    position: absolute;
+    width: 220px;
+    height: 50px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.info-time, .info-tempo {
+    font-family: "JetBrains Mono", monospace;
+    color: var(--accent);
+    font-size: 12px;
+    padding: 8px;
+}
+
+/* Remove most of the original complex animations and effects */
+.cyberpunk-container {
+    position: relative;
+    text-align: center;
+    z-index: 2;
+}
+
+.contenedor {
+    width: -webkit-fill-available;
+}
+
+/* Clean up tutorial and other elements */
+#tutorial-container {
+    display: none;
+}
+
+/* Status indicators (simplified) */
+.status-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    opacity: 0.6;
+}
+
+.status-dot:nth-child(1) {
+    background: var(--accent);
+}
+
+.status-dot:nth-child(2) {
+    background: var(--primary);
+}
+
+.status-dot:nth-child(3) {
+    background: var(--accent-light);
+}
+
+.m-2{
+  margin: 25px 15px;
+}
+
+.content-img-header{
+  margin: 30px 10px 5px 10px;
 }
