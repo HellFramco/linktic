@@ -10,6 +10,23 @@
 
 ---
 
+## 🧩 Diagrama de arquitectura (Mermaid)
+
+```mermaid
+flowchart LR
+    User[Usuario] --> Nginx[Frontend]
+    Nginx --> APIProd[API_Productos]
+    Nginx --> APIInv[API_Inventory]
+
+    APIProd --> Postgres[Postgres_product_db]
+    APIInv --> PostgresInv[Postgres_inventory_db]
+
+    APIInv --> Kafka[Kafka]
+    Kafka --> Zookeeper[Zookeeper]
+```
+
+---
+
 # Inicio Rapido
 ## Crear una carpeta llamada "LINKTIC"
 ´cd linktic´ o en su defecto entrar en esta carpeta
@@ -27,22 +44,9 @@ Es muy importante recalcar que debes tener Docker
 
 ---
 
-## 📌 Índice
-
-- [Estructura del repositorio](#estructura-del-repositorio)
-- [Contenedores (Docker Compose)](#contenedores-docker-compose)
-- [Servicios](#servicios)
-- [Arquitectura y comunicación](#arquitectura-y-comunicación)
-- [Diagrama de arquitectura](#diagrama-de-arquitectura)
-- [Cómo ejecutar](#cómo-ejecutar)
-- [Cómo contribuir](#cómo-contribuir)
-- [Licencia](#licencia)
-
----
-
 ## 📁 Estructura del repositorio
 
-´
+```
 LINKTIC
 
 │ .gitignore
@@ -67,7 +71,7 @@ LINKTIC
   ├── nginx.conf
   ├── src/ # React + Vite
   └── public/
-´
+```
 
 ---
 
@@ -144,23 +148,6 @@ El archivo `docker-compose.yml` levanta los siguientes contenedores:
 3. APIs se conectan a **Postgres** para persistencia.
 4. **Inventory** también consume eventos de Kafka.
 5. Kafka depende de Zookeeper para coordinación.
-
----
-
-## 🧩 Diagrama de arquitectura (Mermaid)
-
-```mermaid
-flowchart LR
-    User[Usuario] --> Nginx[Frontend]
-    Nginx --> APIProd[API_Productos]
-    Nginx --> APIInv[API_Inventory]
-
-    APIProd --> Postgres[Postgres_product_db]
-    APIInv --> PostgresInv[Postgres_inventory_db]
-
-    APIInv --> Kafka[Kafka]
-    Kafka --> Zookeeper[Zookeeper]
-```
 
 ---
 
