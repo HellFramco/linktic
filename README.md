@@ -28,19 +28,33 @@ flowchart LR
 ---
 
 # Inicio Rapido
-## Crear una carpeta llamada "LINKTIC"
-`cd linktic` o en su defecto entrar en esta carpeta
 
-## Clonar Repo
+Sigue estos pasos para tener el proyecto corriendo en pocos minutos usando **Docker**.
+
+### Requisitos previos
+- Tener instalado **Docker** y **Docker Compose**  
+  (puedes verificar con: `docker --version` y `docker compose version`)
+
+### Paso a paso
+
+1. **Crear y entrar en una carpeta para el proyecto**
+
+```bash
+   mkdir linktic
+   cd linktic
+```
+o en su defecto entrar en esta carpeta
+
+2. **Clonar Repo**
 `git clone https://github.com/HellFramco/linktic.git`
 
-## Generar Contenedor, imagenes, volumen y servicios
+3. **Generar Contenedor, imagenes, volumen y servicios**
 `docker compose build`
 Es muy importante recalcar que debes tener Docker
 
-## Levantar o correr el contenedor
+4. **Levantar o correr el contenedor**
 `docker compose up -d`
-### Esperar 5 minutos a que todos los servicios esten corriendo y luego ya estara listo
+# Esperar 5 minutos a que todos los servicios esten corriendo y luego ya estara listo
 
 ---
 
