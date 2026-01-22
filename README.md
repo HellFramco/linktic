@@ -236,12 +236,6 @@ Inventory:
 - feature/inventory
 - feature/purchase
 
-## Uso de IA
-ChatGPT fue utilizado como apoyo para:
-- Definición de arquitectura
-- Estructura del proyecto
-- Buenas prácticas y patrones
-
 ## Mejoras futuras
 - Event-driven con Kafka
 - Saga Pattern
@@ -308,7 +302,16 @@ Products:
 - feature/inventory
 - feature/purchase
 
-## Uso de IA
+## Mejoras futuras
+- Saga Pattern
+- Circuit Breaker (Resilience4j)
+- Cache de productos (Redis)
+- Observabilidad (Prometheus + Grafana)
+
+---
+
+
+# Uso de IA
 ChatGPT fue utilizado como apoyo para:
 - Definición de arquitectura
 - Estructura del proyecto
@@ -321,9 +324,3 @@ GROCK fue utilizado como apoyo para:
 - Schemas
 - Arquitectura de componentes
 - Semantica de servicios
-
-## Mejoras futuras
-- Saga Pattern
-- Circuit Breaker (Resilience4j)
-- Cache de productos (Redis)
-- Observabilidad (Prometheus + Grafana)
