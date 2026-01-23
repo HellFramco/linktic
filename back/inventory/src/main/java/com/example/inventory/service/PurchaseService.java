@@ -8,6 +8,11 @@ import com.example.inventory.repository.InventoryRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import org.springframework.cloud.stream.function.StreamBridge;
+
+import java.time.Instant;
+import java.util.Map;
+
 import java.util.UUID;
 
 @Service
@@ -15,13 +20,16 @@ public class PurchaseService {
 
     private final InventoryRepository inventoryRepository;
     private final ProductClient productClient;
+    private final StreamBridge streamBridge;
 
     public PurchaseService(
             InventoryRepository inventoryRepository,
-            ProductClient productClient
+            ProductClient productClient,
+            StreamBridge streamBridge
     ) {
         this.inventoryRepository = inventoryRepository;
         this.productClient = productClient;
+        this.streamBridge = streamBridge;
     }
 
     @Transactional
@@ -42,6 +50,16 @@ public class PurchaseService {
         // 4️⃣ Descontar stock
         inventory.setQuantity(inventory.getQuantity() - quantity);
         inventoryRepository.save(inventory);
+
+        streamBridge.send(
+            "inventory-events-out-0",
+            Map.of(
+                "type", "PURCHASE",
+                "productId", productId.toString(),
+                "quantity", quantity,
+                "timestamp", Instant.now().toString()
+            )
+        );
 
         // 5️⃣ Respuesta
         return new PurchaseResult(

@@ -27,6 +27,8 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/product_db
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
+    volumes:
+      - product-images:/opt/app/uploads
 
   api-inventory:
     build: ./back/inventory
@@ -81,3 +83,4 @@ services:
 
 volumes:
   postgres-data:
+  product-images:

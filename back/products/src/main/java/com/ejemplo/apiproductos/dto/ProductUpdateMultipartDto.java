@@ -1,24 +1,16 @@
 package com.ejemplo.apiproductos.dto;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
-public class ProductResponseDto {
+import org.springframework.web.multipart.MultipartFile;
 
-    private UUID id;
+public class ProductUpdateMultipartDto {
+
     private String name;
     private BigDecimal price;
     private String description;
     private String state;
-    private String imageUrl;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
+    private MultipartFile image;
 
     public String getName() {
         return name;
@@ -52,11 +44,11 @@ public class ProductResponseDto {
         this.state = state;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public MultipartFile getImage() {
+        return image;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImage(MultipartFile image) {
+        this.image = image;
     }
 }

@@ -9,11 +9,18 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: kafka:9092   # ← Esto es lo principal que faltaba → conecta al broker correcto
+          brokers: kafka:9092
       bindings:
-        handleProductCreated-in-0:   # Debe coincidir con el nombre del @Bean Consumer (handleProductCreated)
+        handleProductCreated-in-0:
           destination: product-created
           group: inventory-group
+          content-type: application/json
+        inventoryEvents-in-0:
+          destination: inventory-events
+          group: notifications
+          content-type: application/json
+        inventory-events-out-0:
+          destination: inventory-events
           content-type: application/json
 
   datasource:
