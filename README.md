@@ -12,9 +12,9 @@
 
 ## 🧩 Acceso rapidos una vez levantado
 
-**http://localhost:8081/swagger-ui/index.html** api-productos
-**http://localhost:8082/swagger-ui/index.html** api-inventory
-**http://localhost/** Front
+- **http://localhost:8081/swagger-ui/index.html** api-productos
+- **http://localhost:8082/swagger-ui/index.html** api-inventory
+- **http://localhost/** Front
 
 ---
 
