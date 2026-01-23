@@ -30,6 +30,7 @@ public class ApiKeyFilter extends OncePerRequestFilter {
                 path.startsWith("/swagger-resources") ||
                 path.startsWith("/uploads") ||
                 path.startsWith("/openapi") ||
+                path.startsWith("/notifications/stream") ||
                 path.equals("/favicon.ico");
     }
 

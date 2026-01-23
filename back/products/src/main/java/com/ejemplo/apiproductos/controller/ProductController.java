@@ -2,6 +2,8 @@ package com.ejemplo.apiproductos.controller;
 
 import com.ejemplo.apiproductos.dto.ProductRequestDto;
 import com.ejemplo.apiproductos.dto.ProductResponseDto;
+import com.ejemplo.apiproductos.dto.ProductUpdateDto;
+import com.ejemplo.apiproductos.dto.ProductUpdateMultipartDto;
 import com.ejemplo.apiproductos.events.ProductCreatedEvent;
 import com.ejemplo.apiproductos.service.ProductService;
 import com.ejemplo.apiproductos.util.JsonApiResponse;
@@ -19,6 +21,7 @@ import org.springframework.http.MediaType;
 // import org.springframework.http.MediaTypeFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 // import java.io.IOException;
 // import java.math.BigDecimal;
@@ -145,12 +148,21 @@ public class ProductController {
         @ApiResponse(responseCode = "400", description = "Datos inválidos"),
         @ApiResponse(responseCode = "401", description = "API Key inválida")
     })
-    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PatchMapping("/{id}")
     public ResponseEntity<JsonApiResponse<ProductResponseDto>> update(
             @PathVariable UUID id,
-            @Valid @ModelAttribute ProductRequestDto dto) {
+            @RequestPart(required = false) ProductUpdateDto dto,
+            @RequestPart(required = false) MultipartFile image
+    ) {
 
-        ProductResponseDto updated = productService.update(id, dto);
+        ProductUpdateMultipartDto multipartDto = new ProductUpdateMultipartDto();
+        multipartDto.setName(dto != null ? dto.getName() : null);
+        multipartDto.setPrice(dto != null ? dto.getPrice() : null);
+        multipartDto.setDescription(dto != null ? dto.getDescription() : null);
+        multipartDto.setState(dto != null ? dto.getState() : null);
+        multipartDto.setImage(image);
+
+        ProductResponseDto updated = productService.update(id, dto, multipartDto);
 
         return ResponseEntity.ok(
                 JsonApiResponse.single("products", id.toString(), updated)

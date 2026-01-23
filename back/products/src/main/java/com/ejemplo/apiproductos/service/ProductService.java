@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Value;
 
 import com.ejemplo.apiproductos.dto.ProductRequestDto;
 import com.ejemplo.apiproductos.dto.ProductResponseDto;
+import com.ejemplo.apiproductos.dto.ProductUpdateDto;
+import com.ejemplo.apiproductos.dto.ProductUpdateMultipartDto;
 import com.ejemplo.apiproductos.entity.Product;
 import com.ejemplo.apiproductos.exception.ProductNotFoundException;
 import com.ejemplo.apiproductos.repository.ProductRepository;
@@ -60,22 +62,34 @@ public class ProductService {
     }
 
     @Transactional
-    public ProductResponseDto update(UUID id, ProductRequestDto dto) {
+    public ProductResponseDto update(UUID id, ProductUpdateDto dto, ProductUpdateMultipartDto multipartDto) {
         Product product = productRepository.findById(id)
-            .orElseThrow(() -> new ProductNotFoundException(id));
+                .orElseThrow(() -> new ProductNotFoundException(id));
 
-        if (dto.getImage() != null && !dto.getImage().isEmpty()) {
-            String imageUrl = saveImage(dto.getImage());
-            product.setImageUrl(imageUrl);
+        // update fields JSON
+        if (dto != null) {
+            if (dto.getName() != null) product.setName(dto.getName());
+            if (dto.getPrice() != null) product.setPrice(dto.getPrice());
+            if (dto.getDescription() != null) product.setDescription(dto.getDescription());
+            if (dto.getState() != null) product.setState(dto.getState());
         }
 
-        product.setName(dto.getName());
-        product.setDescription(dto.getDescription());
-        product.setPrice(dto.getPrice());
-        product.setState(dto.getState());
+        // update fields multipart
+        if (multipartDto != null) {
+            if (multipartDto.getName() != null) product.setName(multipartDto.getName());
+            if (multipartDto.getPrice() != null) product.setPrice(multipartDto.getPrice());
+            if (multipartDto.getDescription() != null) product.setDescription(multipartDto.getDescription());
+            if (multipartDto.getState() != null) product.setState(multipartDto.getState());
 
-        Product saved = productRepository.save(product);
-        return mapToResponseDto(saved);
+            MultipartFile image = multipartDto.getImage();
+            if (image != null && !image.isEmpty()) {
+                String imageUrl = saveImage(image);
+                product.setImageUrl(imageUrl);
+            }
+        }
+
+        Product updated = productRepository.save(product);
+        return mapToResponseDto(updated);
     }
 
     @Transactional
@@ -135,4 +149,5 @@ public class ProductService {
             throw new RuntimeException("Error saving image", e);
         }
     }
+
 }

@@ -83,7 +83,7 @@ public class InventoryController {
         }
 
         List<ProductAttributes> activeProducts = pagedAttributes.getContent().stream()
-                .filter(p -> "0".equals(p.getState()))
+                .filter(p -> "AVAILABLE".equals(p.getState()))
                 .toList();
 
         List<ProductInventoryResponse> responses = activeProducts.stream()

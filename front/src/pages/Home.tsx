@@ -236,6 +236,13 @@ const Home: React.FC = () => {
         </div>
       </div>
 
+      <a
+        href="/inventory"
+        className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+      >
+        Ver Productos
+      </a>
+
       {/* Diagrama */}
       <div>
         <h2>🧩 Diagrama de Arquitectura</h2>
