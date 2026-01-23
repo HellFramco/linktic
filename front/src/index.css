@@ -564,7 +564,9 @@ main {
 }
 
 .content-img-header{
-  margin: 30px 10px 5px 10px;
+    margin: 30px 10px 5px 10px;
+    display: flex;
+    justify-content: space-around;
 }
 
 
@@ -844,4 +846,678 @@ main {
   border-radius: 12px;
   margin-bottom: 20px;
   margin-top: 20px;
+}
+
+/*******************************
+ *     MARKDOWN / CONTENT      *
+ *******************************/
+
+/* Paragraphs - main text content */
+p {
+    margin: 1.1em 0;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    font-size: 0.97rem;
+    font-weight: 400;
+}
+
+/* Strong / bold inside paragraphs */
+p strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* Links inside content */
+p a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(6, 182, 212, 0.4);
+    transition: all 0.18s ease;
+}
+
+p a:hover,
+p a:focus {
+    color: var(--accent-light);
+    border-bottom-color: var(--accent-light);
+    text-shadow: 0 0 6px rgba(6, 182, 212, 0.5);
+}
+
+/* CODE & PRE (code blocks) */
+pre {
+    background: rgba(15, 15, 35, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.35);
+    position: relative;
+}
+
+pre::before {
+    content: " ";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 32px;
+    background: linear-gradient(90deg, 
+        rgba(99,102,241,0.12) 0%, 
+        rgba(6,182,212,0.08) 50%, 
+        rgba(99,102,241,0.12) 100%);
+    border-radius: 10px 10px 0 0;
+    pointer-events: none;
+}
+
+code {
+    font-family: "JetBrains Mono", "Consolas", monospace;
+    color: #a5b4fc;          /* indigo-300 ish */
+    font-size: 0.94em;
+    background: rgba(30, 30, 63, 0.55);
+    padding: 0.18em 0.38em;
+    border-radius: 5px;
+    border: 1px solid rgba(99, 102, 241, 0.18);
+}
+
+/* Inline code inside paragraph */
+p code {
+    font-size: 0.92em;
+}
+
+/* Code block code (stronger contrast) */
+pre code {
+    background: none;
+    padding: 0;
+    border: none;
+    color: #e0e7ff;          /* more visible on dark bg */
+}
+
+/* TABLES */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 1.6rem 0;
+    font-size: 0.94rem;
+    color: var(--text-secondary);
+    background: rgba(30, 30, 63, 0.4);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+thead {
+    background: rgba(15, 15, 35, 0.75);
+    border-bottom: 1px solid var(--border);
+}
+
+th {
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    font-size: 0.82rem;
+    letter-spacing: 0.4px;
+    border-bottom: 1px solid var(--border);
+}
+
+th:first-child {
+    border-top-left-radius: 10px;
+}
+
+th:last-child {
+    border-top-right-radius: 10px;
+}
+
+tbody tr {
+    background: transparent;
+    transition: background 0.14s ease;
+}
+
+tbody tr:nth-child(odd) {
+    background: rgba(15, 15, 35, 0.25);
+}
+
+tbody tr:hover {
+    background: rgba(99, 102, 241, 0.12);
+}
+
+td {
+    padding: 11px 16px;
+    border-top: 1px solid var(--border-light);
+    line-height: 1.5;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+/* Better scrollbar for scrollable tables / pre */
+pre::-webkit-scrollbar,
+table::-webkit-scrollbar {
+    height: 6px;
+    width: 6px;
+}
+
+pre::-webkit-scrollbar-track,
+table::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+pre::-webkit-scrollbar-thumb,
+table::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+pre::-webkit-scrollbar-thumb:hover,
+table::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+/* Optional: smaller text on mobile */
+@media (max-width: 640px) {
+    pre, code, table, th, td {
+        font-size: 0.89rem;
+    }
+    
+    th, td {
+        padding: 10px 12px;
+    }
+    
+    pre {
+        padding: 0.9rem 1rem;
+    }
+}
+
+/*******************************
+ *       LISTS & EMPHASIS      *
+ *******************************/
+
+/* Unordered Lists (bullets) */
+ul {
+    margin: 1.3em 0 1.3em 1.8em;
+    padding: 0;
+    list-style: none;
+    color: var(--text-secondary);
+}
+
+/* Custom bullet for ul */
+ul li {
+    position: relative;
+    padding-left: 1.6em;
+    margin-bottom: 0.75em;
+    line-height: 1.6;
+    font-size: 0.97rem;
+}
+
+/* Neon-ish bullet */
+ul li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    opacity: 0.85;
+    transition: all 0.18s ease;
+}
+
+/* Hover effect on list items */
+ul li:hover {
+    color: var(--text-primary);
+}
+
+ul li:hover::before {
+    color: var(--accent-light);
+    text-shadow: 0 0 8px rgba(6, 182, 212, 0.6);
+    transform: translateX(4px);
+}
+
+/* Nested lists */
+ul ul {
+    margin: 0.6em 0 0.6em 1.6em;
+    font-size: 0.96em;
+}
+
+ul ul li::before {
+    content: "•";
+    font-size: 1.2rem;
+    opacity: 0.7;
+}
+
+/* Ordered Lists (numbers) */
+ol {
+    margin: 1.3em 0 1.3em 2em;
+    padding: 0;
+    color: var(--text-secondary);
+    list-style: none;
+    counter-reset: item;
+}
+
+ol li {
+    position: relative;
+    padding-left: 2.4em;
+    margin-bottom: 0.8em;
+    line-height: 1.6;
+    counter-increment: item;
+}
+
+ol li::before {
+    content: counter(item) ".";
+    position: absolute;
+    left: 0;
+    width: 1.8em;
+    text-align: right;
+    color: var(--primary-light);
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+}
+
+ul li:hover::before {
+    animation: glitch 0.4s infinite;
+}
+
+@keyframes glitch {
+    0% { transform: translate(0); }
+   20% { transform: translate(-1px, 1px); }
+   40% { transform: translate(1px, -1px); }
+   60% { transform: translate(-1px, 0); }
+  100% { transform: translate(0); }
+}
+
+/* Nested ordered lists */
+ol ol {
+    margin: 0.6em 0 0.6em 2em;
+    counter-reset: subitem;
+}
+
+ol ol li::before {
+    content: counter(subitem, lower-alpha) ".";
+    counter-increment: subitem;
+    color: var(--accent);
+}
+
+/* Strong (bold) */
+strong {
+    color: var(--text-primary);
+    font-weight: 600;
+    background: linear-gradient(90deg, 
+        rgba(99, 102, 241, 0.12) 0%, 
+        rgba(6, 182, 212, 0.08) 100%);
+    padding: 0.08em 0.25em;
+    border-radius: 4px;
+    border: 1px solid rgba(99, 102, 241, 0.15);
+}
+
+/* Emphasized (italic) - optional but nice to have */
+em {
+    color: var(--accent-light);
+    font-style: italic;
+    opacity: 0.92;
+}
+
+/* Combined strong + em */
+strong em,
+em strong {
+    color: #c4b5fd;           /* purple-ish accent */
+    background: rgba(99, 102, 241, 0.18);
+}
+
+/* Better spacing when strong is alone or next to links */
+p strong,
+li strong {
+    margin-right: 0.15em;
+}
+
+p em,
+li em {
+    margin-left: 0.15em;
+}
+
+/* Responsive adjustment */
+@media (max-width: 640px) {
+    ul, ol {
+        margin-left: 1.4em;
+    }
+    
+    ul li, ol li {
+        padding-left: 1.8em;
+        font-size: 0.95rem;
+    }
+    
+    ul li::before {
+        font-size: 1rem;
+    }
+}
+
+
+/*******************************
+ *         NAVIGATION          *
+ *******************************/
+
+/* Contenedor principal de navegación */
+nav {
+    background: rgba(15, 15, 35, 0.65);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 1.5rem;
+    position: sticky;
+    top: 0;
+    display: flex;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    justify-content: space-around;
+}
+
+/* Alternativa: nav fijo en la parte superior con más transparencia */
+nav.fixed-top {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+/* Contenedor de enlaces (ul dentro de nav) */
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.8rem;
+    align-items: center;
+    justify-content: center; /* o flex-start / space-between según diseño */
+}
+
+/* Items de la navegación */
+nav li {
+    position: relative;
+}
+
+/* Enlaces dentro de la navegación */
+nav a,
+nav a:visited {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 0.96rem;
+    width: 210px;
+    letter-spacing: 0.4px;
+    padding: 0.5rem 0.8rem;
+    border-radius: 4px;
+    transition: all 0.22s ease;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+/* Efecto hover principal - glow + underline neon */
+nav a:hover,
+nav a:focus {
+    color: var(--accent-light);
+    background: rgba(6, 182, 212, 0.12);
+    box-shadow: 0 0 12px rgba(6, 182, 212, 0.35);
+    transform: translateY(-1px);
+}
+
+/* Línea inferior animada (estilo cyber) */
+nav a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 4px;
+    left: 50%;
+    background: var(--accent);
+    transition: all 0.28s ease;
+    transform: translateX(-50%);
+}
+
+nav a:hover::after {
+    width: 60%;
+}
+
+/* Variante: enlace activo / current page */
+nav a.active,
+nav a[aria-current="page"] {
+    color: var(--accent);
+    background: rgba(6, 182, 212, 0.18);
+    box-shadow: 0 0 14px rgba(6, 182, 212, 0.3);
+}
+
+nav a.active::after {
+    width: 70%;
+    background: var(--accent-light);
+}
+
+/* Enlaces fuera de nav (generales) - para consistencia */
+a,
+a:visited {
+    color: var(--primary-light);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(99, 102, 241, 0.35);
+    transition: all 0.18s ease;
+}
+
+a:hover,
+a:focus {
+    color: var(--accent-light);
+    border-bottom-color: var(--accent-light);
+    text-shadow: 0 0 8px rgba(6, 182, 212, 0.5);
+}
+
+/* Enlaces con íconos (si los usas) */
+nav a svg,
+a svg {
+    margin-right: 0.5rem;
+    transition: all 0.22s ease;
+}
+
+nav a:hover svg,
+a:hover svg {
+    transform: translateY(-1px) scale(1.08);
+    filter: drop-shadow(0 2px 6px rgba(6, 182, 212, 0.6));
+}
+
+/* Menú móvil / hamburguesa (opcional básico) */
+.nav-toggle {
+    display: none; /* ocultar por defecto */
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(15, 15, 35, 0.95);
+        backdrop-filter: blur(12px);
+        border-top: 1px solid var(--border);
+        padding: 1.5rem;
+        gap: 1.2rem;
+    }
+    
+    nav ul.open {
+        display: flex;
+    }
+    
+    .nav-toggle {
+        display: block;
+    }
+    
+    nav a {
+        padding: 0.9rem 1.2rem;
+        width: 100%;
+        text-align: center;
+    }
+    
+    nav a:hover {
+        background: rgba(99, 102, 241, 0.18);
+    }
+}
+
+/* Logo o brand en nav (opcional) */
+nav .brand,
+nav .logo {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+    margin-right: auto; /* si quieres logo a la izquierda */
+}
+
+.footer-cyber {
+  position: relative;
+  margin-top: auto;
+  width: 100%;
+  border-top: 1px solid var(--border);
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  padding: 2rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .footer-cyber {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+.footer-glow-top,
+.footer-glow-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+}
+
+.footer-glow-top {
+  top: 0;
+  background: linear-gradient(to right, transparent, var(--accent), transparent);
+  opacity: 0.6;
+}
+
+.footer-glow-bottom {
+  bottom: 0;
+  left: 50%;
+  width: 16rem;
+  transform: translateX(-50%);
+  background: linear-gradient(to right, transparent, var(--primary), transparent);
+  opacity: 0.4;
+  filter: blur(2px);
+}
+
+.footer-content {
+  max-width: 1152px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .footer-content {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-text-small {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+
+.footer-brand {
+  color: var(--accent);
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-size: 1rem;
+}
+
+.footer-github-link {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-light);
+  background: rgba(15, 15, 35, 0.4);
+  transition: all 0.3s ease;
+}
+
+.footer-github-link:hover {
+  background: rgba(6, 182, 212, 0.12);
+  border-color: var(--accent);
+}
+
+.github-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+
+.footer-github-link:hover .github-icon {
+  color: var(--accent);
+}
+
+.github-text {
+  color: var(--text-secondary);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.875rem;
+  transition: color 0.2s ease;
+}
+
+.footer-github-link:hover .github-text {
+  color: var(--accent-light);
+}
+
+.footer-powered {
+  color: var(--text-muted);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+.footer-powered span {
+  color: var(--primary-light);
 }
