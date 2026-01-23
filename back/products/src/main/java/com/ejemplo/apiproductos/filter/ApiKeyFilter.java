@@ -1,6 +1,6 @@
 package com.ejemplo.apiproductos.filter;
 
-import com.ejemplo.apiproductos.util.ErrorResponse;
+// import com.ejemplo.apiproductos.util.ErrorResponse;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

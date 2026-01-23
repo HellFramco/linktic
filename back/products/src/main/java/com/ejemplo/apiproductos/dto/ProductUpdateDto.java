@@ -1,4 +1,5 @@
 package com.ejemplo.apiproductos.dto;
+import com.ejemplo.apiproductos.util.ProductState;
 
 import java.math.BigDecimal;
 
@@ -7,7 +8,7 @@ public class ProductUpdateDto {
     private String name;
     private BigDecimal price;
     private String description;
-    private String state;
+    private ProductState state;
 
     public String getName() {
         return name;
@@ -33,11 +34,11 @@ public class ProductUpdateDto {
         this.description = description;
     }
 
-    public String getState() {
+    public ProductState getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(ProductState state) {
         this.state = state;
     }
 }

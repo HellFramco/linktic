@@ -32,7 +32,7 @@ const InventoryPage = () => {
     loadProducts();
   }, []);
 
-  useSSE('/api/products/notifications/stream', handleEvent);
+  useSSE('/api/inventory/notifications/stream', handleEvent);
 
   if (loading) return <p>Cargando productos...</p>;
 

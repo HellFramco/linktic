@@ -3,13 +3,14 @@ package com.ejemplo.apiproductos.dto;
 import java.math.BigDecimal;
 
 import org.springframework.web.multipart.MultipartFile;
+import com.ejemplo.apiproductos.util.ProductState;
 
 public class ProductUpdateMultipartDto {
 
     private String name;
     private BigDecimal price;
     private String description;
-    private String state;
+    private ProductState state;
     private MultipartFile image;
 
     public String getName() {
@@ -36,11 +37,11 @@ public class ProductUpdateMultipartDto {
         this.description = description;
     }
 
-    public String getState() {
+    public ProductState getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(ProductState state) {
         this.state = state;
     }
 

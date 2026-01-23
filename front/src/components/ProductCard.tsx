@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { InventoryProduct } from '../types/inventory'
 import { purchaseProduct } from '../api/hooks/purchase.service'
+import { deleteProduct } from '../api/hooks/productsDeleted.service'
 import { toast } from 'react-toastify'
 
 interface Props {
   product: InventoryProduct
   onPurchaseSuccess: () => void
+  onDeleteSuccess?: () => void
 }
 
 export const formatCOP = (value: number) =>
@@ -15,9 +17,10 @@ export const formatCOP = (value: number) =>
     minimumFractionDigits: 0,
   }).format(value)
 
-const ProductCard = ({ product, onPurchaseSuccess }: Props) => {
+const ProductCard = ({ product, onPurchaseSuccess, onDeleteSuccess }: Props) => {
   const [quantity, setQuantity] = useState(1)
   const [loading, setLoading] = useState(false)
+   const [deleting, setDeleting] = useState(false)
 
   const handleBuy = async () => {
     if (quantity <= 0) {
@@ -34,7 +37,7 @@ const ProductCard = ({ product, onPurchaseSuccess }: Props) => {
       })
 
       toast.success('Compra realizada con éxito 🛒')
-      onPurchaseSuccess() // 🔄 refresca inventario
+      onPurchaseSuccess()
     } catch (error: any) {
       console.error(error)
       toast.error(
@@ -42,6 +45,25 @@ const ProductCard = ({ product, onPurchaseSuccess }: Props) => {
       )
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleDelete = async () => {
+    try {
+      setDeleting(true)
+
+      await deleteProduct(product.productId)
+
+      toast.success('Producto eliminado correctamente 🗑️')
+      onDeleteSuccess?.()
+      onPurchaseSuccess()
+    } catch (error: any) {
+      console.error(error)
+      toast.error(
+        error.response?.data?.message || 'Error al eliminar el producto'
+      )
+    } finally {
+      setDeleting(false)
     }
   }
 
@@ -109,6 +131,14 @@ const ProductCard = ({ product, onPurchaseSuccess }: Props) => {
         <div className="action">
           <button onClick={handleBuy} disabled={loading}>
             {loading ? 'Comprando...' : 'BUY'}
+          </button>
+
+          <button
+            onClick={handleDelete}
+            disabled={deleting}
+            style={{ marginLeft: 10 }}
+          >
+            {deleting ? 'Eliminando...' : 'DELETE'}
           </button>
         </div>
       </div>

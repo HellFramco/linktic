@@ -4,6 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.ejemplo.apiproductos.util.ProductState;
+import jakarta.validation.constraints.NotNull;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.math.BigDecimal;
@@ -19,8 +22,8 @@ public class ProductRequestDto {
 
     private String description;
 
-    @NotBlank
-    private String state;
+    @NotNull
+    private ProductState state;
 
     @Schema(type = "string", format = "binary", description = "Imagen del producto")
     private MultipartFile image;
@@ -35,8 +38,8 @@ public class ProductRequestDto {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public String getState() { return state; }
-    public void setState(String state) { this.state = state; }
+    public ProductState getState() { return state; }
+    public void setState(ProductState state) { this.state = state; }
 
     public MultipartFile getImage() { return image; }
     public void setImage(MultipartFile image) { this.image = image; }
