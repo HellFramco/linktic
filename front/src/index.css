@@ -30,6 +30,14 @@
     box-sizing: border-box;
 }
 
+#root{
+    height: 100svh;
+    width: 100%;
+    position: relative;
+    overflow-x: scroll;
+    display: flex;
+}
+
 body {
     font-family: "Inter", sans-serif;
     background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
@@ -821,10 +829,16 @@ main {
 }
 
 .modal {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  width: 400px;
+    backdrop-filter: blur(11px);
+    padding: 20px;
+    border-radius: 8px;
+    width: 370px;
+    top: 25px;
+    transform: translateX(4%);
+    position: absolute;
+    border: 1px solid var(--border);
+    box-shadow: 0 6px 6px #0000004d;
+    background: rgb(246 6 6 / 75%);
 }
 
 .modal input,
@@ -1212,16 +1226,22 @@ li em {
 
 /* Contenedor principal de navegación */
 nav {
-    background: rgba(15, 15, 35, 0.65);
+    background: #0f0f23a6;
+    -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
+    border: 1px solid var(--border);
     padding: 1rem 1.5rem;
     position: sticky;
-    top: 0;
+    width: fit-content;
+    top: 15px;
+    height: 200px;
+    margin-left: 10px;
     display: flex;
     z-index: 100;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 20px #0006;
     justify-content: space-around;
+    flex-direction: column;
+    border-radius: 12px;
 }
 
 /* Alternativa: nav fijo en la parte superior con más transparencia */
@@ -1255,14 +1275,14 @@ nav a,
 nav a:visited {
     color: var(--text-secondary);
     text-decoration: none;
-    font-family: "Inter", sans-serif;
+    font-family: Inter, sans-serif;
     font-weight: 500;
-    font-size: 0.96rem;
-    width: 210px;
-    letter-spacing: 0.4px;
-    padding: 0.5rem 0.8rem;
+    font-size: .96rem;
+    width: 143px;
+    letter-spacing: .4px;
+    padding: .5rem .8rem;
     border-radius: 4px;
-    transition: all 0.22s ease;
+    transition: all .22s ease;
     position: relative;
     display: flex;
     justify-content: center;
@@ -1520,4 +1540,29 @@ nav .logo {
 
 .footer-powered span {
   color: var(--primary-light);
+}
+
+/* Solo aparece cuando pasas el mouse por la zona con scroll */
+*::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background: transparent;
+}
+
+*:hover::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: rgba(99, 102, 241, 0.4);
+    border-radius: 10px;
+}
+
+*:hover::-webkit-scrollbar-thumb {
+    background: var(--accent);
 }

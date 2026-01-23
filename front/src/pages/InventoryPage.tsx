@@ -38,7 +38,7 @@ const InventoryPage = () => {
 
   return (
     <>
-      <div style={{ marginBottom: 20 }}>
+      <div style={{ position: "fixed", top: "240px" }}>
         <button onClick={() => setOpenModal(true)}>
           ➕ Crear producto
         </button>

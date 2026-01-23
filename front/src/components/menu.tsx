@@ -18,7 +18,7 @@ const NavBar = () => {
       <Link
         to="/diagramas"
       >
-        Diagramas
+        Documentacion
       </Link>
     </nav>
   )

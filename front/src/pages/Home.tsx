@@ -189,7 +189,7 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <div className="d-flex justify-content-center">
+    <div className="d-flex justify-content-center" style={{padding: "5px 20px"}}>
       <div className="content-img-header">
         <img
           src="https://img.shields.io/badge/docker-257bd6?style=for-the-badge&logo=docker&logoColor=white"
