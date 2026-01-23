@@ -23,7 +23,7 @@
 Sigue estos pasos para tener el proyecto corriendo en pocos minutos usando **Docker**.
 
 ### Requisitos previos
-- Tener instalado **Docker** y **Docker Compose**  
+- Tener instalado **Docker** y **Docker Compose** con **WSL** 
   (puedes verificar con: `docker --version` y `docker compose version`)
 
 ### Paso a paso
