@@ -166,6 +166,7 @@ const ProductCard = ({ product, onPurchaseSuccess, onDeleteSuccess }: Props) => 
             <label>Cantidad:</label>
             <input
               type="number"
+              className='form-input'
               min={1}
               max={product.quantity}
               value={quantity}
@@ -208,13 +209,14 @@ const ProductCard = ({ product, onPurchaseSuccess, onDeleteSuccess }: Props) => 
             <h2>Editar producto</h2>
 
             <div>
-              <label>Nombre</label>
-              <input value={editName} onChange={(e) => setEditName(e.target.value)} />
+              <label className='form-label'>Nombre</label>
+              <input className='form-input' value={editName} onChange={(e) => setEditName(e.target.value)} />
             </div>
 
             <div>
-              <label>Precio</label>
+              <label className='form-label'>Precio</label>
               <input
+                className='form-input'
                 type="number"
                 value={editPrice}
                 onChange={(e) => setEditPrice(Number(e.target.value))}
@@ -222,29 +224,30 @@ const ProductCard = ({ product, onPurchaseSuccess, onDeleteSuccess }: Props) => 
             </div>
 
             <div>
-              <label>Descripción</label>
+              <label className='form-label'>Descripción</label>
               <textarea
+                className='form-input'
                 value={editDescription}
                 onChange={(e) => setEditDescription(e.target.value)}
               />
             </div>
 
             <div>
-              <label>Estado</label>
-              <select value={editState} onChange={(e) => setEditState(e.target.value as any)}>
+              <label className='form-label'>Estado</label>
+              <select  className='form-select' value={editState} onChange={(e) => setEditState(e.target.value as any)}>
                 <option value="AVAILABLE">AVAILABLE</option>
                 <option value="UNAVAILABLE">UNAVAILABLE</option>
               </select>
             </div>
 
             <div>
-              <label>Imagen</label>
-              <input type="file" onChange={(e) => setEditImage(e.target.files?.[0] || null)} />
+              <label className='form-label'>Imagen</label>
+              <input className='form-input' type="file" onChange={(e) => setEditImage(e.target.files?.[0] || null)} />
             </div>
 
             <div className="modal-actions">
-              <button onClick={() => setIsEditOpen(false)}>Cancelar</button>
-              <button onClick={handleEditSave} disabled={editLoading}>
+              <button className='login-button sentex' onClick={() => setIsEditOpen(false)}>Cancelar</button>
+              <button className='login-button sentex' onClick={handleEditSave} disabled={editLoading}>
                 {editLoading ? 'Guardando...' : 'Guardar'}
               </button>
             </div>

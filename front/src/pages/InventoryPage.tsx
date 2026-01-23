@@ -39,8 +39,8 @@ const InventoryPage = () => {
   return (
     <>
       <div style={{ position: "fixed", top: "240px" }}>
-        <button onClick={() => setOpenModal(true)}>
-          ➕ Crear producto
+        <button className='login-button sentex' onClick={() => setOpenModal(true)}>
+          + Crear 
         </button>
       </div>
 

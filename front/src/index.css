@@ -20,6 +20,21 @@
     --border-light: rgba(99, 102, 241, 0.1);
 }
 
+@font-face {
+  font-family: 'sentex';
+  src: url('/src/assets/Sentex-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.sentex {
+  padding: 0px 5px 0px 5px;
+  font-size: 0.7rem;
+  filter: drop-shadow(2px 2px 2px #7d7d7d55);
+  font-family: 'sentex', sans-serif;
+  text-align: center;
+}
+
 .contenidoPrincipal {
     display: contents;
 }
@@ -689,11 +704,92 @@ main {
   width: 100%;
 }
 
+.card .image {
+  position: relative;           /* importante para posicionar pseudo-elementos */
+  display: block;
+  overflow: hidden;
+  border-radius: 0 15px 5px;
+  height: 165px;
+  width: 100%;
+}
+
 .card .image img {
   display: block;
-  max-width: 100%;
-  height: 165px;
-  border-radius: 0px 5px 5px 5px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;            /* mantiene proporciones sin distorsión */
+  transition: all 0.15s ease;
+}
+
+/* Contenedor glitch (wrapper alrededor de la img) */
+.card .image::before,
+.card .image::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(''); /* se llenará con la misma imagen via JS o inline */
+  background-size: cover;
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;     /* o lighten / overlay según el look */
+  transition: opacity 0.2s ease;
+}
+
+/* Versión cyan (rojo desplazado) */
+.card .image::before {
+  left: 2px;
+  clip-path: inset(0 0 0 0);  /* se anima después */
+  animation: glitch-1 2.5s infinite linear alternate-reverse;
+}
+
+/* Versión magenta (azul desplazado) */
+.card .image::after {
+  left: -2px;
+  clip-path: inset(0 0 0 0);
+  animation: glitch-2 2.8s infinite linear alternate-reverse;
+}
+
+/* Hover para activar glitch más intenso */
+.card .image:hover img {
+  transform: scale(1.03);
+}
+
+.card .image:hover::before,
+.card .image:hover::after {
+  opacity: 0.7;               /* fuerza el glitch al hover */
+}
+
+/* Animaciones glitch */
+@keyframes glitch-1 {
+  0%   { transform: translate(0);        clip-path: inset(0 0 0 0); }
+  5%   { transform: translate(-8px, 2px); clip-path: inset(2% 0 8% 0); }
+  10%  { transform: translate(6px, -4px); clip-path: inset(5% 0 5% 0); }
+  15%  { transform: translate(-4px, 6px); clip-path: inset(0 5% 0 5%); }
+  20%  { transform: translate(0);        clip-path: inset(0 0 0 0); }
+  100% { transform: translate(0);        clip-path: inset(0 0 0 0); }
+}
+
+@keyframes glitch-2 {
+  0%   { transform: translate(0);        clip-path: inset(0 0 0 0); }
+  5%   { transform: translate(8px, -2px); clip-path: inset(0 8% 0 2%); }
+  10%  { transform: translate(-6px, 4px); clip-path: inset(0 5% 0 5%); }
+  15%  { transform: translate(4px, -6px); clip-path: inset(5% 0 5% 0); }
+  20%  { transform: translate(0);        clip-path: inset(0 0 0 0); }
+  100% { transform: translate(0);        clip-path: inset(0 0 0 0); }
+}
+
+/* Opcional: efecto más agresivo (parpadeo RGB + skew) */
+.card .image:hover::before {
+  mix-blend-mode: screen;
+  filter: hue-rotate(180deg) brightness(1.2);
+}
+
+.card .image:hover::after {
+  mix-blend-mode: screen;
+  filter: hue-rotate(-120deg) brightness(1.1);
 }
 
 /* DESCRIPTION */
@@ -829,16 +925,17 @@ main {
 }
 
 .modal {
+    -webkit-backdrop-filter: blur(11px);
     backdrop-filter: blur(11px);
     padding: 20px;
     border-radius: 8px;
     width: 370px;
     top: 25px;
-    transform: translateX(4%);
+    transform: translate(4%);
     position: absolute;
     border: 1px solid var(--border);
     box-shadow: 0 6px 6px #0000004d;
-    background: rgb(246 6 6 / 75%);
+    background: #000000de;
 }
 
 .modal input,

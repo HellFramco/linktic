@@ -1,4 +1,3 @@
-import React from 'react';
 import estructura from '../assets/structura.png'
 
 interface ArchitecturePattern {
