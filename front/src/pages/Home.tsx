@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import mermaid from "mermaid";
 
 const Home: React.FC = () => {
   const loginFormRef = useRef<HTMLDivElement>(null);
@@ -7,11 +6,6 @@ const Home: React.FC = () => {
   const scrollArrowRef = useRef<HTMLParagraphElement>(null);
 
   const [formHasOverflow, setFormHasOverflow] = useState(false);
-
-  // Inicializar mermaid
-  useEffect(() => {
-    mermaid.initialize({ startOnLoad: true, theme: "dark" });
-  }, []);
 
   // 1. Efecto de focus en inputs
   useEffect(() => {
@@ -236,34 +230,8 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      <a
-        href="/inventory"
-        className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-      >
-        Ver Productos
-      </a>
-
-      {/* Diagrama */}
-      <div>
-        <h2>🧩 Diagrama de Arquitectura</h2>
-        <div className="mermaid">
-          {`
-            flowchart LR
-              User[Usuario] --> Nginx[Frontend]
-              Nginx --> APIProd[API_Productos]
-              Nginx --> APIInv[API_Inventory]
-
-              APIProd --> Postgres[Postgres_product_db]
-              APIInv --> PostgresInv[Postgres_inventory_db]
-
-              APIInv --> Kafka[Kafka]
-              Kafka --> Zookeeper[Zookeeper]
-          `}
-        </div>
-      </div>
-
       {/* Inicio rápido */}
-      <div>
+      <div className="login-card m-2">
         <h2>⚡ Inicio Rápido</h2>
         <p>
           Sigue estos pasos para tener el proyecto corriendo en pocos minutos
@@ -314,7 +282,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* Estructura */}
-      <div>
+      <div className="login-card m-2">
         <h2>📁 Estructura del Repositorio</h2>
         <pre>
           <code>
@@ -334,7 +302,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* Contenedores */}
-      <div>
+      <div className="login-card m-2">
         <h2>🐳 Contenedores (docker-compose.yml)</h2>
         <table>
           <thead>
@@ -387,7 +355,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* Servicios */}
-      <div>
+      <div className="login-card m-2">
         <h2>⚙️ Servicios Principales</h2>
         <ul>
           <li>
@@ -404,7 +372,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* Inventory & Products */}
-      <div>
+      <div className="login-card m-2">
         <h2>📦 Inventory Service</h2>
         <p>Microservicio de gestión de inventario y flujo de compra.</p>
         <ul>
@@ -428,7 +396,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* IA */}
-      <div>
+      <div className="login-card m-2">
         <h2>🤖 Uso de IA en el desarrollo</h2>
         <ul>
           <li>
@@ -442,10 +410,31 @@ const Home: React.FC = () => {
         </ul>
       </div>
 
-      <div>
-        <p>Proyecto de prueba técnica • HellFramco • 2025–2026</p>
-        <p>github.com/HellFramco/linktic</p>
-      </div>
+      <footer className="footer-cyber">
+        <div className="footer-glow-top"></div>
+
+        <div className="footer-content">
+          <div className="footer-left">
+            <p className="footer-text-small">Proyecto de prueba técnica</p>
+            <p className="footer-brand">HellFramco • 2025–2026</p>
+          </div>
+
+          <a
+            href="https://github.com/HellFramco/linktic"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer-github-link group"
+          >
+            <span className="github-text">github.com/HellFramco/linktic</span>
+          </a>
+
+          <div className="footer-powered">
+            Powered by <span>React.js + Spring Boot</span>
+          </div>
+        </div>
+
+        <div className="footer-glow-bottom"></div>
+      </footer>
     </div>
   );
 };

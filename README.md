@@ -10,20 +10,11 @@
 
 ---
 
-## 🧩 Diagrama de arquitectura (Mermaid)
+## 🧩 Acceso rapidos una vez levantado
 
-```mermaid
-flowchart LR
-    User[Usuario] --> Nginx[Frontend]
-    Nginx --> APIProd[API_Productos]
-    Nginx --> APIInv[API_Inventory]
-
-    APIProd --> Postgres[Postgres_product_db]
-    APIInv --> PostgresInv[Postgres_inventory_db]
-
-    APIInv --> Kafka[Kafka]
-    Kafka --> Zookeeper[Zookeeper]
-```
+**http://localhost:8081/swagger-ui/index.html** api-productos
+**http://localhost:8082/swagger-ui/index.html** api-inventory
+**http://localhost/** Front
 
 ---
 

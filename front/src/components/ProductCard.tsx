@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { InventoryProduct } from '../types/inventory'
 import { purchaseProduct } from '../api/hooks/purchase.service'
 import { deleteProduct } from '../api/hooks/productsDeleted.service'
+import { getProductById, updateProduct } from '../api/hooks/productsUpdate.service'
 import { toast } from 'react-toastify'
 
 interface Props {
@@ -20,7 +21,16 @@ export const formatCOP = (value: number) =>
 const ProductCard = ({ product, onPurchaseSuccess, onDeleteSuccess }: Props) => {
   const [quantity, setQuantity] = useState(1)
   const [loading, setLoading] = useState(false)
-   const [deleting, setDeleting] = useState(false)
+  const [deleting, setDeleting] = useState(false)
+
+  const [isEditOpen, setIsEditOpen] = useState(false)
+  const [editLoading, setEditLoading] = useState(false)
+
+  const [editName, setEditName] = useState('')
+  const [editPrice, setEditPrice] = useState(0)
+  const [editDescription, setEditDescription] = useState('')
+  const [editState, setEditState] = useState<'AVAILABLE' | 'UNAVAILABLE'>('AVAILABLE')
+  const [editImage, setEditImage] = useState<File | null>(null)
 
   const handleBuy = async () => {
     if (quantity <= 0) {
@@ -64,6 +74,49 @@ const ProductCard = ({ product, onPurchaseSuccess, onDeleteSuccess }: Props) => 
       )
     } finally {
       setDeleting(false)
+    }
+  }
+
+  const openEdit = async () => {
+    try {
+      setIsEditOpen(true)
+      const res: any = await getProductById(product.productId)
+
+      const attrs = res.data.attributes
+
+      setEditName(attrs.name)
+      setEditPrice(attrs.price)
+      setEditDescription(attrs.description)
+      setEditState(attrs.state)
+    } catch (error: any) {
+      toast.error('Error al cargar el producto')
+      setIsEditOpen(false)
+    }
+  }
+
+  const handleEditSave = async () => {
+    try {
+      setEditLoading(true)
+
+      const formData = new FormData()
+      formData.append('name', editName)
+      formData.append('price', String(editPrice))
+      formData.append('description', editDescription)
+      formData.append('state', editState)
+
+      if (editImage) {
+        formData.append('image', editImage)
+      }
+
+      await updateProduct(product.productId, formData)
+
+      toast.success('Producto editado correctamente ✨')
+      setIsEditOpen(false)
+      onPurchaseSuccess()
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || 'Error al editar el producto')
+    } finally {
+      setEditLoading(false)
     }
   }
 
@@ -134,6 +187,13 @@ const ProductCard = ({ product, onPurchaseSuccess, onDeleteSuccess }: Props) => 
           </button>
 
           <button
+            onClick={openEdit}
+            style={{ marginLeft: 10 }}
+          >
+            EDIT
+          </button>
+
+          <button
             onClick={handleDelete}
             disabled={deleting}
             style={{ marginLeft: 10 }}
@@ -142,6 +202,55 @@ const ProductCard = ({ product, onPurchaseSuccess, onDeleteSuccess }: Props) => 
           </button>
         </div>
       </div>
+      {isEditOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>Editar producto</h2>
+
+            <div>
+              <label>Nombre</label>
+              <input value={editName} onChange={(e) => setEditName(e.target.value)} />
+            </div>
+
+            <div>
+              <label>Precio</label>
+              <input
+                type="number"
+                value={editPrice}
+                onChange={(e) => setEditPrice(Number(e.target.value))}
+              />
+            </div>
+
+            <div>
+              <label>Descripción</label>
+              <textarea
+                value={editDescription}
+                onChange={(e) => setEditDescription(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <label>Estado</label>
+              <select value={editState} onChange={(e) => setEditState(e.target.value as any)}>
+                <option value="AVAILABLE">AVAILABLE</option>
+                <option value="UNAVAILABLE">UNAVAILABLE</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Imagen</label>
+              <input type="file" onChange={(e) => setEditImage(e.target.files?.[0] || null)} />
+            </div>
+
+            <div className="modal-actions">
+              <button onClick={() => setIsEditOpen(false)}>Cancelar</button>
+              <button onClick={handleEditSave} disabled={editLoading}>
+                {editLoading ? 'Guardando...' : 'Guardar'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
