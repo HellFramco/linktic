@@ -3,13 +3,15 @@ package com.ejemplo.apiproductos.dto;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import com.ejemplo.apiproductos.util.ProductState;
+
 public class ProductResponseDto {
 
     private UUID id;
     private String name;
     private BigDecimal price;
     private String description;
-    private String state;
+    private ProductState state;
     private String imageUrl;
 
     public UUID getId() {
@@ -44,11 +46,11 @@ public class ProductResponseDto {
         this.description = description;
     }
 
-    public String getState() {
+    public ProductState getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(ProductState state) {
         this.state = state;
     }
 

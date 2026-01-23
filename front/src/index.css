@@ -781,13 +781,13 @@ main {
 .card .action button {
   cursor: pointer;
   border: 1px solid #682b54;
-  padding: 7px 28px;
+  padding: 7px 15px;
   border-radius: 10px;
-  color: #000000;
+  color: #000;
   background: #d470b3;
-  font-family: "Open Sans", sans-serif;
-  font-size: 14px;
-  transition: 200ms;
+  font-family: Open Sans, sans-serif;
+  font-size: 10px;
+  transition: .2s;
 }
 
 .card .action button:hover {

@@ -2,11 +2,13 @@ package com.ejemplo.apiproductos.controller;
 
 import com.ejemplo.apiproductos.dto.ProductRequestDto;
 import com.ejemplo.apiproductos.dto.ProductResponseDto;
-import com.ejemplo.apiproductos.dto.ProductUpdateDto;
+// import com.ejemplo.apiproductos.dto.ProductUpdateDto;
 import com.ejemplo.apiproductos.dto.ProductUpdateMultipartDto;
 import com.ejemplo.apiproductos.events.ProductCreatedEvent;
 import com.ejemplo.apiproductos.service.ProductService;
 import com.ejemplo.apiproductos.util.JsonApiResponse;
+import com.ejemplo.apiproductos.util.ProductState;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -22,7 +24,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
+import java.math.BigDecimal;
 // import java.io.IOException;
 // import java.math.BigDecimal;
 // import org.springframework.web.multipart.MultipartFile;
@@ -140,29 +142,32 @@ public class ProductController {
     }
 
     @Operation(
-        summary = "Editar porducto por uuid",
-        description = "Edita los campos del producto en cuestion"
+            summary = "Editar producto por uuid",
+            description = "Edita los campos del producto en cuestion"
     )
     @ApiResponses({
-        @ApiResponse(responseCode = "201", description = "Producto editado"),
-        @ApiResponse(responseCode = "400", description = "Datos inválidos"),
-        @ApiResponse(responseCode = "401", description = "API Key inválida")
+            @ApiResponse(responseCode = "200", description = "Producto editado"),
+            @ApiResponse(responseCode = "400", description = "Datos inválidos"),
+            @ApiResponse(responseCode = "401", description = "API Key inválida")
     })
-    @PatchMapping("/{id}")
+    @PatchMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<JsonApiResponse<ProductResponseDto>> update(
             @PathVariable UUID id,
-            @RequestPart(required = false) ProductUpdateDto dto,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) BigDecimal price,
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) ProductState state,
             @RequestPart(required = false) MultipartFile image
     ) {
 
         ProductUpdateMultipartDto multipartDto = new ProductUpdateMultipartDto();
-        multipartDto.setName(dto != null ? dto.getName() : null);
-        multipartDto.setPrice(dto != null ? dto.getPrice() : null);
-        multipartDto.setDescription(dto != null ? dto.getDescription() : null);
-        multipartDto.setState(dto != null ? dto.getState() : null);
+        multipartDto.setName(name);
+        multipartDto.setPrice(price);
+        multipartDto.setDescription(description);
+        multipartDto.setState(state);
         multipartDto.setImage(image);
 
-        ProductResponseDto updated = productService.update(id, dto, multipartDto);
+        ProductResponseDto updated = productService.update(id, multipartDto);
 
         return ResponseEntity.ok(
                 JsonApiResponse.single("products", id.toString(), updated)
